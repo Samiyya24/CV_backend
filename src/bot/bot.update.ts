@@ -1,14 +1,5 @@
-import {
-  Action,
-  Command,
-  Ctx,
-  Hears,
-  On,
-  Start,
-  Update,
-} from 'nestjs-telegraf';
-import { Context, Markup } from 'telegraf';
-import { inlineKeyboard } from 'telegraf/typings/markup';
+import { Start, Update, Ctx, On, Command } from 'nestjs-telegraf';
+import { Context } from 'telegraf';
 import { BotService } from './bot.service';
 
 @Update()
@@ -17,26 +8,29 @@ export class BotUpdate {
 
   @Start()
   async onStart(@Ctx() ctx: Context) {
-    this.botService.start(ctx);
+    await this.botService.start(ctx);
   }
 
-  // @On('contact')
-  // async onContact(@Ctx() ctx: Context) {
-  //   if ('contact' in ctx.message) {
-  //     console.log(ctx.message.contact);
-  //     await this.botService.onContact(ctx);
-  //   }
-  // }
+  @Command('start')
+  async handleStart(@Ctx() ctx: Context) {
+    await this.botService.start(ctx);
+  }
 
-  // @Command('stop')
-  // async onStop(@Ctx() ctx: Context) {
-  //   await this.botService.onStop(ctx);
-  // }
-  
   @On('message')
   async onMessage(@Ctx() ctx: Context) {
     if ('text' in ctx.message) {
-      await this.botService.onMessage(ctx);
+      const channelId = 't.me/channel_test_bots'; // Replace with your channel username or ID
+      const message = ctx.message.text;
+
+      try {
+        await this.botService.sendMessageToChannel(channelId, message);
+        console.log(`Message sent to channel ${channelId}: ${message}`);
+      } catch (error) {
+        console.error(
+          `Failed to send message to channel ${channelId}:`,
+          error.response?.data,
+        );
+      }
     }
   }
 }

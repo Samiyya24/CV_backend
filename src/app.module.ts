@@ -34,5 +34,6 @@ import { Bot } from './bot/model/bot.model';
   ],
   controllers: [],
   providers: [],
+  // exports: ['TelegrafBot'],
 })
 export class AppModule {}
