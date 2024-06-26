@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
+import { Admin } from './admin/entities/admin.entity';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
@@ -14,9 +16,10 @@ import { UserModule } from './user/user.module';
       database: process.env.POSTGRES_DB,
       host: process.env.POSTGRES_HOST,
       synchronize: true,
-      entities: [],
+      entities: [Admin],
     }),
     UserModule,
+    AdminModule,
   ],
   controllers: [],
   providers: [],
