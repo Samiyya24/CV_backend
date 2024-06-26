@@ -1,12 +1,23 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserModule } from './user/user.module';
 import { Admin } from './admin/entities/admin.entity';
 import { AdminModule } from './admin/admin.module';
+import { TelegrafModule } from 'nestjs-telegraf';
+import { BotModule } from './bot/bot.module';
+import { BOT_NAME } from './app.constants';
+import { Bot } from './bot/model/bot.model';
 
 @Module({
   imports: [
+    TelegrafModule.forRootAsync({
+      botName: BOT_NAME,
+      useFactory: () => ({
+        token: process.env.BOT_TOKEN,
+        middlewares: [],
+        include: [BotModule],
+      }),
+    }),
     ConfigModule.forRoot({ envFilePath: '.env', isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -16,9 +27,9 @@ import { AdminModule } from './admin/admin.module';
       database: process.env.POSTGRES_DB,
       host: process.env.POSTGRES_HOST,
       synchronize: true,
-      entities: [Admin],
+      entities: [Bot, Admin],
     }),
-    UserModule,
+    BotModule,
     AdminModule,
   ],
   controllers: [],
