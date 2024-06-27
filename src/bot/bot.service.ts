@@ -13,13 +13,23 @@ export class BotService {
     );
   }
 
+  async hi(ctx: Context) {
+    if (ctx && ctx.message) {
+      await ctx.reply('dd');
+      console.log(ctx.);
+    } else {
+      console.error('Context or message text is undefined');
+    }
+      
+  }
+
   async sendMessageToChannel(channelId: string, message: string) {
     try {
       await this.bot.telegram.sendMessage(channelId, message);
       console.log(`Message sent to channel ${channelId}: ${message}`);
     } catch (error) {
       console.error(
-        `Failed to send message to channel ${channelId}:`,
+        `Failed to send message to channel service ${channelId}:`,
         error.response?.data,
       );
       throw error; // Propagate the error to handle it further if needed

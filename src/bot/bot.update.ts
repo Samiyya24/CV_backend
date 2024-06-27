@@ -20,14 +20,15 @@ export class BotUpdate {
   async onMessage(@Ctx() ctx: Context) {
     if ('text' in ctx.message) {
       const channelId = 't.me/channel_test_bots'; // Replace with your channel username or ID
-      const message = ctx.message.text;
-
+      const message = ctx.message.text
+      console.log(ctx.message.text)
+await this.botService.hi(ctx)
       try {
         await this.botService.sendMessageToChannel(channelId, message);
         console.log(`Message sent to channel ${channelId}: ${message}`);
       } catch (error) {
         console.error(
-          `Failed to send message to channel ${channelId}:`,
+          `Failed to send message to channel update ${channelId}:`,
           error.response?.data,
         );
       }
