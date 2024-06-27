@@ -1,9 +1,17 @@
 import { User } from 'src/users/entities/user.entity';
+import { Education } from 'src/education/entities/education.entity';
+import { Experience } from 'src/experience/entities/experience.entity';
+import { Interest } from 'src/interest/entities/interest.entity';
+import { Language } from 'src/language/entities/language.entity';
+import { Skill } from 'src/skills/entities/skill.entity';
+import { Summary } from 'src/summary/entities/summary.entity'; // Adjust the import path as necessary
 import {
   Column,
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -36,6 +44,24 @@ export class Resume {
 
   @Column()
   userId: number;
+
+  @OneToMany(() => Education, (education) => education.resume)
+  educations: Education[];
+
+  @OneToMany(() => Experience, (experience) => experience.resume)
+  experiences: Experience[];
+
+  @OneToMany(() => Interest, (interest) => interest.resume)
+  interests: Interest[];
+
+  @OneToMany(() => Language, (language) => language.resume)
+  languages: Language[];
+
+  @OneToMany(() => Skill, (skill) => skill.resume)
+  skills: Skill[];
+
+  @OneToOne(() => Summary, (summary) => summary.resume, { cascade: true })
+  summary: Summary;
 
   @CreateDateColumn()
   createdAt: Date;

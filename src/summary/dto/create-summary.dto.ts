@@ -1,1 +1,3 @@
-export class CreateSummaryDto {}
+export class CreateSummaryDto {
+  content: string;
+}

@@ -1,1 +1,5 @@
-export class CreateSkillDto {}
+export class CreateSkillDto {
+  name: string;
+  level: string;
+  resumeId: number;
+}

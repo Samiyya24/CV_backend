@@ -1,26 +1,36 @@
 import { Injectable } from '@nestjs/common';
 import { CreateInterestDto } from './dto/create-interest.dto';
 import { UpdateInterestDto } from './dto/update-interest.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Interest } from './entities/interest.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class InterestService {
+  constructor(
+    @InjectRepository(Interest)
+    private readonly interestRepo: Repository<Interest>,
+  ) {}
+
   create(createInterestDto: CreateInterestDto) {
-    return 'This action adds a new interest';
+    return this.interestRepo.save(createInterestDto);
   }
 
   findAll() {
-    return `This action returns all interest`;
+    return this.interestRepo.find({relations: ['resume']});
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} interest`;
+    return this.interestRepo.findOneBy({ id });
   }
 
-  update(id: number, updateInterestDto: UpdateInterestDto) {
-    return `This action updates a #${id} interest`;
+  async update(id: number, updateInterestDto: UpdateInterestDto) {
+    await this.interestRepo.update({ id }, updateInterestDto);
+    return this.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} interest`;
+  async remove(id: number) {
+    await this.interestRepo.delete({ id });
+    return id;
   }
 }

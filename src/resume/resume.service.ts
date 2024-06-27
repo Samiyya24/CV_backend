@@ -16,7 +16,17 @@ export class ResumeService {
   }
 
   findAll() {
-    return this.resumeRepo.find({ relations: ['user'] });
+    return this.resumeRepo.find({
+      relations: [
+        'user',
+        'education',
+        'experience',
+        'language',
+        'interest',
+        'skills',
+        'summary',
+      ],
+    });
   }
 
   findOne(id: number) {
