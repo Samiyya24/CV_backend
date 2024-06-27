@@ -17,6 +17,12 @@ import { SkillsModule } from './skills/skills.module';
 import { SummaryModule } from './summary/summary.module';
 import { LanguageModule } from './language/language.module';
 import { InterestModule } from './interest/interest.module';
+import { Education } from './education/entities/education.entity';
+import { Experience } from './experience/entities/experience.entity';
+import { Skill } from './skills/entities/skill.entity';
+import { Summary } from './summary/entities/summary.entity';
+import { Interest } from './interest/entities/interest.entity';
+import { Language } from './language/entities/language.entity';
 
 @Module({
   imports: [
@@ -37,7 +43,18 @@ import { InterestModule } from './interest/interest.module';
       database: process.env.POSTGRES_DB,
       host: process.env.POSTGRES_HOST,
       synchronize: true,
-      entities: [Bot, Admin, User, Resume],
+      entities: [
+        Bot,
+        Admin,
+        User,
+        Resume,
+        Experience,
+        Education,
+        Skill,
+        Summary,
+        Interest,
+        Language,
+      ],
     }),
     UsersModule,
     BotModule,
