@@ -11,6 +11,12 @@ import { ResumeModule } from './resume/resume.module';
 import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
 import { Resume } from './resume/entities/resume.entity';
+import { ExperienceModule } from './experience/experience.module';
+import { EducationModule } from './education/education.module';
+import { SkillsModule } from './skills/skills.module';
+import { SummaryModule } from './summary/summary.module';
+import { LanguageModule } from './language/language.module';
+import { InterestModule } from './interest/interest.module';
 
 @Module({
   imports: [
@@ -37,6 +43,12 @@ import { Resume } from './resume/entities/resume.entity';
     BotModule,
     AdminModule,
     ResumeModule,
+    ExperienceModule,
+    EducationModule,
+    SkillsModule,
+    SummaryModule,
+    LanguageModule,
+    InterestModule,
   ],
   controllers: [],
   providers: [],
