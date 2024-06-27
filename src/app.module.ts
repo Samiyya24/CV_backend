@@ -7,6 +7,10 @@ import { TelegrafModule } from 'nestjs-telegraf';
 import { BotModule } from './bot/bot.module';
 import { BOT_NAME } from './app.constants';
 import { Bot } from './bot/model/bot.model';
+import { ResumeModule } from './resume/resume.module';
+import { UsersModule } from './users/users.module';
+import { User } from './users/entities/user.entity';
+import { Resume } from './resume/entities/resume.entity';
 
 @Module({
   imports: [
@@ -27,10 +31,12 @@ import { Bot } from './bot/model/bot.model';
       database: process.env.POSTGRES_DB,
       host: process.env.POSTGRES_HOST,
       synchronize: true,
-      entities: [Bot, Admin],
+      entities: [Bot, Admin, User, Resume],
     }),
+    UsersModule,
     BotModule,
     AdminModule,
+    ResumeModule,
   ],
   controllers: [],
   providers: [],

@@ -16,7 +16,6 @@ export class BotService {
   async hi(ctx: Context) {
     if (ctx && ctx.message) {
       await ctx.reply('dd');
-      console.log(ctx.);
     } else {
       console.error('Context or message text is undefined');
     }
