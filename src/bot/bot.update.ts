@@ -20,15 +20,7 @@ export class BotUpdate {
   async onMessage(@Ctx() ctx: Context) {
     try {
       if (ctx.message && 'text' in ctx.message) {
-        const channelId = '@resume_templates_channel'; // Replace with your channel username or ID
-        const message = ctx.message.text;
-
-        // Send the message to a channel
-        await this.botService.sendMessageToChannel(channelId, message);
-        console.log(`Message sent to channel ${channelId}: ${message}`);
-
-        // Reply to the user who sent the original message
-        await ctx.reply('Successfully sent!');
+        await this.botService.onMessage(ctx);
       }
     } catch (error) {
       console.error(
