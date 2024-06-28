@@ -28,7 +28,7 @@ export class Experience {
   @Column({ type: 'text', nullable: true })
   description: string;
 
-  @ManyToOne(() => Resume, (resume) => resume.experiences)
+  @ManyToOne(() => Resume, (resume) => resume.experience)
   resume: Resume;
 
   @Column()

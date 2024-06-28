@@ -16,7 +16,7 @@ export class Interest {
   @Column()
   name: string;
 
-  @ManyToOne(() => Resume, (resume) => resume.interests)
+  @ManyToOne(() => Resume, (resume) => resume.interest)
   resume: Resume;
 
   @Column()

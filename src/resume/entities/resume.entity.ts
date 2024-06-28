@@ -46,16 +46,16 @@ export class Resume {
   userId: number;
 
   @OneToMany(() => Education, (education) => education.resume)
-  educations: Education[];
+  education: Education[];
 
   @OneToMany(() => Experience, (experience) => experience.resume)
-  experiences: Experience[];
+  experience: Experience[];
 
   @OneToMany(() => Interest, (interest) => interest.resume)
-  interests: Interest[];
+  interest: Interest[];
 
   @OneToMany(() => Language, (language) => language.resume)
-  languages: Language[];
+  language: Language[];
 
   @OneToMany(() => Skill, (skill) => skill.resume)
   skills: Skill[];

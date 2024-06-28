@@ -19,7 +19,7 @@ export class Language {
   @Column()
   proficiency: string;
 
-  @ManyToOne(() => Resume, (resume) => resume.languages)
+  @ManyToOne(() => Resume, (resume) => resume.language)
   resume: Resume;
 
   @Column()

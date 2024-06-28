@@ -21,6 +21,9 @@ export class Summary {
   @JoinColumn()
   resume: Resume;
 
+  @Column()
+  resumeId: number;
+
   @CreateDateColumn()
   createdAt: Date;
 

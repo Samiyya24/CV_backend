@@ -25,7 +25,7 @@ export class Education {
   @Column()
   institution: string;
 
-  @ManyToOne(() => Resume, (resume) => resume.educations)
+  @ManyToOne(() => Resume, (resume) => resume.education)
   resume: Resume;
 
   @Column()
