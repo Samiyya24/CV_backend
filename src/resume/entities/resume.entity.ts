@@ -60,7 +60,7 @@ export class Resume {
   @OneToMany(() => Skill, (skill) => skill.resume)
   skills: Skill[];
 
-  @OneToOne(() => Summary, (summary) => summary.resume, { cascade: true })
+  @OneToMany(() => Summary, (summary) => summary.resume, { cascade: true })
   summary: Summary;
 
   @CreateDateColumn()

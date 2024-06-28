@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateResumeDto } from './dto/create-resume.dto';
 import { UpdateResumeDto } from './dto/update-resume.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -11,11 +11,11 @@ export class ResumeService {
     @InjectRepository(Resume) private readonly resumeRepo: Repository<Resume>,
   ) {}
 
-  create(createResumeDto: CreateResumeDto) {
+  async create(createResumeDto: CreateResumeDto) {
     return this.resumeRepo.save(createResumeDto);
   }
 
-  findAll() {
+  async findAll() {
     return this.resumeRepo.find({
       relations: [
         'user',
@@ -29,8 +29,22 @@ export class ResumeService {
     });
   }
 
-  findOne(id: number) {
-    return this.resumeRepo.findOneBy({ id });
+  async findOne(id: number) {
+    const resume = await this.resumeRepo.findOne({where: {id}, 
+      relations: [
+        'user',
+        'education',
+        'experience',
+        'language',
+        'interest',
+        'skills',
+        'summary',
+      ],
+    });
+    if (!resume) {
+      throw new NotFoundException(`Resume with ID ${id} not found`);
+    }
+    return resume;
   }
 
   async update(id: number, updateResumeDto: UpdateResumeDto) {
@@ -39,7 +53,10 @@ export class ResumeService {
   }
 
   async remove(id: number) {
-    await this.resumeRepo.delete({ id });
+    const result = await this.resumeRepo.delete({ id });
+    if (result.affected === 0) {
+      throw new NotFoundException(`Resume with ID ${id} not found`);
+    }
     return id;
   }
 }

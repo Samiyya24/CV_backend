@@ -19,8 +19,10 @@ export class UsersService {
     return this.userRepo.find({ relations: ['resume'] });
   }
 
-  findOne(id: number) {
-    return this.userRepo.findOneBy({ id });
+  async findOne(id: number) {
+    const find = await this.userRepo.findOneBy({ id });
+    console.log(find);
+    return find;
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {

@@ -18,20 +18,26 @@ export class BotUpdate {
 
   @On('message')
   async onMessage(@Ctx() ctx: Context) {
-    if ('text' in ctx.message) {
-      const channelId = 't.me/channel_test_bots'; // Replace with your channel username or ID
-      const message = ctx.message.text
-      console.log(ctx.message.text)
-await this.botService.hi(ctx)
-      try {
+    try {
+      if (ctx.message && 'text' in ctx.message) {
+        const channelId = '@channel_test_bots'; // Replace with your channel username or ID
+        const message = ctx.message.text;
+
+        // Log incoming message text
+        console.log(`Received message: ${message}`);
+
+        // Echo back a response
+        await this.botService.hi(ctx);
+
+        // Send the message to a channel
         await this.botService.sendMessageToChannel(channelId, message);
         console.log(`Message sent to channel ${channelId}: ${message}`);
-      } catch (error) {
-        console.error(
-          `Failed to send message to channel update ${channelId}:`,
-          error.response?.data,
-        );
       }
+    } catch (error) {
+      console.error(
+        `Failed to process message update or send message to channel:`,
+        error,
+      );
     }
   }
 }

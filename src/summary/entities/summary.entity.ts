@@ -6,6 +6,7 @@ import {
   UpdateDateColumn,
   OneToOne,
   JoinColumn,
+  ManyToOne,
 } from 'typeorm';
 import { Resume } from 'src/resume/entities/resume.entity';
 import { ApiProperty } from '@nestjs/swagger';
@@ -20,7 +21,7 @@ export class Summary {
   @ApiProperty({ description: 'The content of the summary' })
   content: string;
 
-  @OneToOne(() => Resume, (resume) => resume.summary)
+  @ManyToOne(() => Resume, (resume) => resume.summary)
   @JoinColumn()
   @ApiProperty({ description: 'The resume associated with this summary' })
   resume: Resume;
