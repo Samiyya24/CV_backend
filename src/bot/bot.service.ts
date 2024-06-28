@@ -31,17 +31,27 @@ export class BotService {
     }
   }
 
-  async sendMessageToChannel(channelId: string, message: string) {
-    try {
-      await this.bot.telegram.sendMessage(channelId, message);
-      this.logger.log(`Message sent to channel ${channelId}: ${message}`);
-    } catch (error) {
-      this.logger.error(
-        `Failed to send message to channel ${channelId}: ${error.response?.data}`,
-      );
-      throw error; // Propagate the error to handle it further if needed
-    }
+ async sendMessageToChannel(channelId: string, message: string) {
+  try {
+    // Send the message to the specified channel
+    await this.bot.telegram.sendMessage(channelId, message);
+    
+    // Log a success message
+    this.logger.log(`Message sent to channel ${channelId}: ${message}`);
+
+    // Optionally, send a confirmation message to a specific chat or log success differently
+    // Example: await this.bot.telegram.sendMessage(channelId, "Successfully sent!");
+  } catch (error) {
+    // Log the error with the response data if available
+    this.logger.error(
+      `Failed to send message to channel ${channelId}: ${error.response?.data}`,
+    );
+
+    // Propagate the error to handle it further if needed
+    throw error;
   }
+}
+
 
   // You can add more service methods here as needed
 }
