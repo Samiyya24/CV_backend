@@ -107,7 +107,7 @@ export class AdminService {
     try {
       await this.mailService.sendMail(data);
     } catch (error) {
-      this.logger.error('Access Denied');
+      // this.logger.error('Access Denied');
       throw new BadRequestException('Xatni yuborishda xatolik');
     }
     const response = {
