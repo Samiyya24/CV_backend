@@ -20,7 +20,10 @@ export class UsersService {
   }
 
   async findOne(id: number) {
-    const find = await this.userRepo.findOneBy({ id });
+    const find = await this.userRepo.findOne({
+      where: { id },
+      relations: ['resume'],
+    });
     console.log(find);
     return find;
   }

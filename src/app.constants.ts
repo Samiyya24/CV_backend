@@ -1,1 +1,1 @@
-export const BOT_NAME = 'Stadium varify bot';
+export const BOT_NAME = 'cv maker bot';
